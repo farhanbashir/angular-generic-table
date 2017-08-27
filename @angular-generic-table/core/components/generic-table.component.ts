@@ -76,9 +76,9 @@ import {GtRenderField} from '../interfaces/gt-render-field';
                               (click)="column.click ? column.click(row,column,$event):'';column.expand ? toggleCollapse(row):''"></span>
                         <ng-template
                                 [ngIf]="!column.columnComponent && (gtFields | gtProperty:column.objectKey:'inlineEdit') === true">
-                            <input class="inline-edit" type="text" [(ngModel)]="column.renderValue"
+                            <input class="inline-edit form-control" type="text" [(ngModel)]="column.renderValue"
                                    (keyup)="gtUpdateColumn($event,row, column)">
-                            <span class="gt-inline-edit-notice"><i *ngIf="(gtFields | gtProperty:column.objectKey:'showSearchIcon') === true" class="fa fa-search" (click)="openModal($event, row, column)"></i>{{gtTexts.inlineEditEdited}}here</span>
+                            <span class="gt-inline-edit-notice"><i *ngIf="(gtFields | gtProperty:column.objectKey:'showSearchIcon') === true" class="fa fa-search" (click)="openModal($event, row, column)"></i>{{gtTexts.inlineEditEdited}}</span>
                         </ng-template>
                         <gt-dropdown
                                 *ngIf="!column.columnComponent && (gtFields | gtProperty:column.objectKey:'inlineEdit') && (gtFields | gtProperty:column.objectKey:'inlineEdit').length > 0"
@@ -234,7 +234,7 @@ export class GenericTableComponent<R extends GtRow, C extends GtExpandedRow<R>> 
         sortLabel: 'Sort:',
         paginateNext: 'Next page',
         paginatePrevious: 'Previous page',
-        inlineEditEdited: 'Press enter to save'
+        inlineEditEdited: ''
     };
     @Input() gtTexts: GtTexts = this.gtDefaultTexts;
     @Input() gtClasses: string;
@@ -907,6 +907,9 @@ export class GenericTableComponent<R extends GtRow, C extends GtExpandedRow<R>> 
                     break;
                 case 'Escape': // cancel
                     this.inlineEditCancel();
+                    break;
+                default:
+                    this.inlineEditUpdate();
                     break;
             }
         });
