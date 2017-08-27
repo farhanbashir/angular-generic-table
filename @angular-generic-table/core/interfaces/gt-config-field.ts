@@ -46,4 +46,5 @@ export interface GtConfigField<R extends GtRow, C extends GtCustomComponent<any>
   // set to false if field shouldn't be searchable (true by default)
   search?: any;
   inlineEdit?: boolean | Array<any>;
+  showSearchIcon?: boolean | Array<any>;
 }
