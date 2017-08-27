@@ -78,7 +78,7 @@ import {GtRenderField} from '../interfaces/gt-render-field';
                                 [ngIf]="!column.columnComponent && (gtFields | gtProperty:column.objectKey:'inlineEdit') === true">
                             <input class="inline-edit" type="text" [(ngModel)]="column.renderValue"
                                    (keyup)="gtUpdateColumn($event,row, column)">
-                            <span class="gt-inline-edit-notice">{{gtTexts.inlineEditEdited}}</span>
+                            <span class="gt-inline-edit-notice"><i *ngIf="(gtFields | gtProperty:column.objectKey:'showSearchIcon') === true" class="fa fa-search" (click)="openModal($event, row, column)"></i>{{gtTexts.inlineEditEdited}}here</span>
                         </ng-template>
                         <gt-dropdown
                                 *ngIf="!column.columnComponent && (gtFields | gtProperty:column.objectKey:'inlineEdit') && (gtFields | gtProperty:column.objectKey:'inlineEdit').length > 0"
@@ -289,6 +289,12 @@ export class GenericTableComponent<R extends GtRow, C extends GtExpandedRow<R>> 
             }
         });
     }
+
+    private openModal = function($event, row, column)
+        {
+            this.gtEvent.emit({name: 'gt-open-modal', value:{event:$event,row:row,column:column}});
+
+        };
 
     /**
      * Sort table by object key.
