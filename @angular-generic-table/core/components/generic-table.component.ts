@@ -900,7 +900,7 @@ export class GenericTableComponent<R extends GtRow, C extends GtExpandedRow<R>> 
      */
     private _listenForKeydownEvent() {
         // add global listener for key down events
-        this.globalInlineEditListener = this.renderer.listen('document', 'keydown', $event => {
+        this.globalInlineEditListener = this.renderer.listen('document', 'keyup', $event => {
             switch ($event.key) {
                 case 'Enter': // update data object
                     this.inlineEditUpdate();
